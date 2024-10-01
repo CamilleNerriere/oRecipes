@@ -5,10 +5,16 @@ import Content from '../Content/Content';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
 
+interface UserAuth {
+  email: string;
+  password: string;
+}
+
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [loadingRecipesStatus, setLoadingRecipesStatus] = useState(true);
-  const [showIndex, setshowIndex] = useState(true);
+  const [userAuth, setUserAuth] = useState<UserAuth | null>(null);
+  const [errorAuth, setErrorAuth] = useState(false);
 
   const loadRecipes = useCallback(async () => {
     try {
@@ -37,11 +43,19 @@ function App() {
             <Content
               recipes={recipes}
               loadingRecipesStatus={loadingRecipesStatus}
+              setUserAuth={setUserAuth}
             />
           }
         />
-        <Route path="/recipes/" element={<Navigate to="/" />} />
-        <Route path="/recipes/:slug" element={<Content recipes={recipes} />} />
+        <Route
+          path="/recipes/"
+          element={<Navigate to="/" />}
+          setUserAuth={setUserAuth}
+        />
+        <Route
+          path="/recipes/:slug"
+          element={<Content recipes={recipes} setUserAuth={setUserAuth} />}
+        />
       </Routes>
     </div>
   );

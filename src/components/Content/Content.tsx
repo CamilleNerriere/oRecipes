@@ -8,11 +8,12 @@ import { IRecipe } from '../../@types';
 interface RecipesProps {
   recipes: IRecipe[];
   loadingRecipesStatus: boolean;
+  setUserAuth: React.Dispatch<React.SetStateAction<UserAuth | null>>;
 }
 
 import './Content.scss';
 
-function Content({ recipes, loadingRecipesStatus }: RecipesProps) {
+function Content({ recipes, loadingRecipesStatus, setUserAuth }: RecipesProps) {
   const { slug } = useParams();
 
   const selectedRecipe = slug
@@ -21,7 +22,7 @@ function Content({ recipes, loadingRecipesStatus }: RecipesProps) {
 
   return (
     <div className="content">
-      <Header />
+      <Header setUserAuth={setUserAuth} />
 
       {slug && !selectedRecipe ? (
         // Slug fourni mais aucune recette correspondante
