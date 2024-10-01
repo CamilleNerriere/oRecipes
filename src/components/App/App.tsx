@@ -5,11 +5,14 @@ import Content from '../Content/Content';
 
 function App() {
   const [recipes, setRecipes] = useState([]);
+  const [loadingRecipesStatus, setLoadingRecipesStatus] = useState(true);
+
   const loadRecipes = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3000/api/recipes');
       const data = await response.json();
       setRecipes(data);
+      setLoadingRecipesStatus(false);
     } catch (error) {
       console.log(error);
       // gérer un message d'erreur utilisateur
@@ -23,7 +26,8 @@ function App() {
   return (
     <div className="container">
       <Nav />
-      <Content recipes={recipes} />
+
+      <Content recipes={recipes} loadingRecipesStatus={loadingRecipesStatus} />
     </div>
   );
 }

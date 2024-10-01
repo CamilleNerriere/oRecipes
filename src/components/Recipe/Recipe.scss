@@ -12,6 +12,10 @@
 
   &__img{
     width: 100%;
+    height: auto; // Garde le ratio d'aspect
+    object-fit: cover; // Pour s'assurer que l'image reste dans les dimensions sans se déformer
+    border-top-left-radius: inherit; 
+    border-top-right-radius: inherit;
   }
 
   &__resume{

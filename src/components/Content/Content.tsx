@@ -5,15 +5,16 @@ import { IRecipe } from '../../@types';
 
 interface RecipesProps {
   recipes: IRecipe[];
+  loadingRecipesStatus: boolean;
 }
 
 import './Content.scss';
 
-function Content({ recipes }: RecipesProps) {
+function Content({ recipes, loadingRecipesStatus }: RecipesProps) {
   return (
     <div className="content">
       <Header />
-      <Recipes recipes={recipes} />
+      <Recipes recipes={recipes} loadingRecipesStatus={loadingRecipesStatus} />
     </div>
   );
 }
