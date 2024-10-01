@@ -3,21 +3,26 @@ import './Header.scss';
 function Header() {
   return (
     <div className="header">
-      <img src="../../assets/logo.svg" alt="" />
-      <form className="login">
+      <img className="header__img" src="src/assets/logo.png" alt="" />
+      <form className="header__login">
         <input
+          className="header__input"
           type="email"
           id="login-email"
-          placeholders="Adresse Email"
+          placeholder="Adresse Email"
           name="email"
         />
         <input
+          className="header__input"
           type="password"
           id="login-password"
-          placeholders="Mot de Passe"
+          placeholder="Mot de Passe"
           name="password"
         />
-        <button type="submit"> OK </button>
+        <button className="header__button" type="submit">
+          {' '}
+          OK{' '}
+        </button>
       </form>
     </div>
   );

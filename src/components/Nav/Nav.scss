@@ -1,5 +1,9 @@
 @use 'src/styles/vars';
 
 .nav{
-  width:30%
+  width:30%;
+  display: flex;
+  flex-direction: column;
+  background-color: vars.$dark-color;
+  padding: vars.$gutter;
 }

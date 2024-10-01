@@ -3,10 +3,9 @@
 .link {
   text-decoration: none;
   color: vars.$light-color;
-
-  &:hover {
-    text-decoration: underline;
-  }
+  font-size: 1.2em;
+  padding-top: vars.$gutter * 0.5;
+  
 }
 
 // Styles pour le lien actif

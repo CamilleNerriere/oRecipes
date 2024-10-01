@@ -2,4 +2,27 @@
 
 .header{
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__img{
+    width: 5em;
+    margin: vars.$gutter * 0.5 vars.$gutter;
+  }
+
+  &__login{
+    margin-right: vars.$gutter;
+  }
+
+  &__input, &__button {
+    padding: vars.$gutter * 0.3;
+    border-radius: vars.$gutter * 0.3; 
+    margin: vars.$gutter*0.1;
+  }
+
+  &__button{
+    background-color: vars.$primary-color;
+    border: none;
+    color: vars.$light-color;
+  }
 }
