@@ -1,0 +1,30 @@
+@use 'src/styles/vars';
+
+.recipe {
+  width: 50%;
+  padding: vars.$gutter;  
+  box-sizing: border-box; 
+  display: flex;
+  flex-direction: column;
+
+  &__img{
+    width: 100%;
+    margin-bottom: vars.$gutter;
+  }
+
+  &__title{
+    font-size: 1.5em;
+  }
+
+  &__level{
+    font-size: 0.7em;
+  }
+
+  &__recipe__button{
+    margin-top: vars.$gutter ;
+    padding: vars.$gutter * 0.5 vars.$gutter * 2;
+    background-color: vars.$primary-color;
+    color: vars.$light-color;
+  }
+
+}

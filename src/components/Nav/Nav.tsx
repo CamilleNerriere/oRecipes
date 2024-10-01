@@ -3,7 +3,7 @@ import Link from '../Link/Link';
 
 function Nav() {
   return (
-    <nav>
+    <nav className="nav">
       <Link />
       <Link />
       <Link />

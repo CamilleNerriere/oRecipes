@@ -1,0 +1,18 @@
+@use 'src/styles/vars';
+
+.recipes{
+  padding: vars.$gutter;
+
+  &__title{
+    font-size: 3em;
+    color: vars.$primary-color;
+  }
+
+  &__resume{
+    font-size: 1.5em;
+  }
+
+  &__container{
+    display: flex;
+  }
+}
