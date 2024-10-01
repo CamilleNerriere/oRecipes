@@ -22,6 +22,7 @@ function Recipes({ recipes, loadingRecipesStatus }: RecipesProps) {
             thumbnail={recipe.thumbnail}
             title={recipe.title}
             difficulty={recipe.difficulty}
+            slug={recipe.slug}
           />
         ))}
       </div>

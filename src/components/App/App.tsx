@@ -3,9 +3,12 @@ import './App.scss';
 import Nav from '../Nav/Nav';
 import Content from '../Content/Content';
 
+import { Route, Routes } from 'react-router-dom';
+
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [loadingRecipesStatus, setLoadingRecipesStatus] = useState(true);
+  const [showIndex, setshowIndex] = useState(true);
 
   const loadRecipes = useCallback(async () => {
     try {
@@ -25,9 +28,20 @@ function App() {
 
   return (
     <div className="container">
-      <Nav />
+      <Nav recipes={recipes} />
 
-      <Content recipes={recipes} loadingRecipesStatus={loadingRecipesStatus} />
+      <Routes>
+        <Route path="/recipes/:slug" element={<Content recipes={recipes} />} />
+        <Route
+          path="/"
+          element={
+            <Content
+              recipes={recipes}
+              loadingRecipesStatus={loadingRecipesStatus}
+            />
+          }
+        />
+      </Routes>
     </div>
   );
 }

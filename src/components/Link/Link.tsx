@@ -1,13 +1,15 @@
 import './Link.scss';
 import { NavLink } from 'react-router-dom';
 
-function Link() {
+import { IRecipe } from '../../@types';
+
+function Link({ slug, title }: IRecipe) {
   return (
     <NavLink
-      to="/recipe"
+      to={`recipes/${slug}`}
       className={({ isActive }) => `link ${isActive ? 'active' : ''}`}
     >
-      Cookies au beurre de cacahuette
+      {title}
     </NavLink>
   );
 }
