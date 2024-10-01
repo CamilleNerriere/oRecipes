@@ -3,7 +3,7 @@ import './App.scss';
 import Nav from '../Nav/Nav';
 import Content from '../Content/Content';
 
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, Navigate } from 'react-router-dom';
 
 function App() {
   const [recipes, setRecipes] = useState([]);
@@ -31,7 +31,6 @@ function App() {
       <Nav recipes={recipes} />
 
       <Routes>
-        <Route path="/recipes/:slug" element={<Content recipes={recipes} />} />
         <Route
           path="/"
           element={
@@ -41,6 +40,8 @@ function App() {
             />
           }
         />
+        <Route path="/recipes/" element={<Navigate to="/" />} />
+        <Route path="/recipes/:slug" element={<Content recipes={recipes} />} />
       </Routes>
     </div>
   );

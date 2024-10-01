@@ -1,11 +1,17 @@
 import './Instructions.scss';
 
-function Instructions() {
+interface InstructionsProps {
+  instructions: array<string>;
+}
+
+function Instructions({ instructions }: InstructionsProps) {
   return (
     <ul className="instructions">
-      <li>
-        <span>-</span> Faites fondre le chocolat et le beurre ensemble
-      </li>
+      {instructions.map((instruction) => (
+        <li className="instructions__item" key={instruction}>
+          <span>-</span> {instruction}
+        </li>
+      ))}
     </ul>
   );
 }

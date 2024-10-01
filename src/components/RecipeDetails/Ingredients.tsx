@@ -1,12 +1,23 @@
 import './Ingredients.scss';
 
-function Ingredients() {
+import { IIngredient } from '../../@types';
+
+interface IngredientsProps {
+  ingredients: IIngredient[];
+}
+
+function Ingredients({ ingredients }: IngredientsProps) {
   return (
     <ul className="ingredients">
-      <li className="ingredients__item">
-        <span className="ingredients__item--quantity"> 200 g</span>
-        chocolat noir
-      </li>
+      {ingredients.map((ingredient) => (
+        <li className="ingredients__item" key={ingredient.id}>
+          <span className="ingredients__item--quantity">
+            {' '}
+            {ingredient.quantity} {ingredient.unit}
+          </span>{' '}
+          {ingredient.name}
+        </li>
+      ))}
     </ul>
   );
 }
