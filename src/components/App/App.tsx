@@ -10,11 +10,20 @@ interface UserAuth {
   password: string;
 }
 
+interface UserData {
+  pseudo: string;
+  token: string;
+  logged: boolean;
+}
+
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [loadingRecipesStatus, setLoadingRecipesStatus] = useState(true);
   const [userAuth, setUserAuth] = useState<UserAuth | null>(null);
-  const [errorAuth, setErrorAuth] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
+
+  // récupération des recettes
 
   const loadRecipes = useCallback(async () => {
     try {
@@ -32,6 +41,37 @@ function App() {
     loadRecipes();
   }, [loadRecipes]);
 
+  // login
+
+  const login = useCallback(async () => {
+    if (userAuth) {
+      const response = await fetch('http://localhost:3000/api/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: userAuth.email,
+          password: userAuth.password,
+        }),
+      });
+      const user = await response.json();
+      setUserData(user);
+      console.log(user);
+      if (response.ok) {
+        console.log(user);
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+        throw user;
+      }
+    }
+  }, [userAuth]);
+
+  useEffect(() => {
+    login();
+  }, [login]);
+
   return (
     <div className="container">
       <Nav recipes={recipes} />
@@ -44,6 +84,8 @@ function App() {
               recipes={recipes}
               loadingRecipesStatus={loadingRecipesStatus}
               setUserAuth={setUserAuth}
+              isAuthenticated={isAuthenticated}
+              userData={userData}
             />
           }
         />
@@ -51,10 +93,14 @@ function App() {
           path="/recipes/"
           element={<Navigate to="/" />}
           setUserAuth={setUserAuth}
+          isAuthenticated={isAuthenticated}
+          userData={userData}
         />
         <Route
           path="/recipes/:slug"
           element={<Content recipes={recipes} setUserAuth={setUserAuth} />}
+          isAuthenticated={isAuthenticated}
+          userData={userData}
         />
       </Routes>
     </div>

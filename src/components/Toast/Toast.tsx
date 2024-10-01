@@ -1,12 +1,20 @@
 import './Toast.scss';
 
-import { IAuthUser } from '../../@types';
+interface UserData {
+  pseudo: string;
+  token: string;
+  logged: boolean;
+}
 
-function Toast({ user }: IAuthUser) {
-  const { pseudo } = user;
+interface ToastProps {
+  userData: UserData;
+  isLogged: boolean;
+}
+
+function Toast({ userData, isLogged }: ToastProps) {
   return (
     <div className="toast">
-      {IsLogged ? `Bienvenue ${pseudo}` : 'Erreur de Connexion'}
+      {isLogged ? `Bienvenue ${userData.pseudo}` : 'Erreur de Connexion'}
     </div>
   );
 }

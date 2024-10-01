@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../Header/Header';
 import Recipes from '../Recipes/Recipes';
 import RecipeDetails from '../RecipeDetails/RecipeDetails';
+import Toast from '../Toast/Toast';
 
 import { IRecipe } from '../../@types';
 
@@ -9,11 +10,25 @@ interface RecipesProps {
   recipes: IRecipe[];
   loadingRecipesStatus: boolean;
   setUserAuth: React.Dispatch<React.SetStateAction<UserAuth | null>>;
+  isAuthenticated: boolean | null;
+  userData: UserData;
+}
+
+interface UserData {
+  pseudo: string;
+  token: string;
+  logged: boolean;
 }
 
 import './Content.scss';
 
-function Content({ recipes, loadingRecipesStatus, setUserAuth }: RecipesProps) {
+function Content({
+  recipes,
+  loadingRecipesStatus,
+  setUserAuth,
+  isAuthenticated,
+  userData,
+}: RecipesProps) {
   const { slug } = useParams();
 
   const selectedRecipe = slug
@@ -24,6 +39,10 @@ function Content({ recipes, loadingRecipesStatus, setUserAuth }: RecipesProps) {
     <div className="content">
       <Header setUserAuth={setUserAuth} />
 
+      {isAuthenticated === true && (
+        <Toast userData={userData} isLogged={true} />
+      )}
+      {isAuthenticated === false && <Toast isLogged={false} />}
       {slug && !selectedRecipe ? (
         // Slug fourni mais aucune recette correspondante
         <p>Recipe not found</p>
