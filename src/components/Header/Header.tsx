@@ -1,10 +1,6 @@
 import './Header.scss';
 
-interface HeaderProps {
-  setUserAuth: React.Dispatch<React.SetStateAction<UserAuth | null>>;
-}
-
-function Header({ setUserAuth }: HeaderProps) {
+function Header() {
   return (
     <div className="header">
       <img className="header__img" src="src/assets/logo.png" alt="" />
@@ -17,10 +13,6 @@ function Header({ setUserAuth }: HeaderProps) {
           const email = data.email as string;
           const password = data.password as string;
           console.log(email, password);
-          setUserAuth({
-            email,
-            password,
-          });
         }}
       >
         <input

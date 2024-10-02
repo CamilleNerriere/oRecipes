@@ -1,7 +1,9 @@
 import { useState, useCallback, useEffect } from 'react';
 import './App.scss';
 import Nav from '../Nav/Nav';
-import Content from '../Content/Content';
+import RecipeDetails from '../RecipeDetails/RecipeDetails';
+import Recipes from '../Recipes/Recipes';
+import Header from '../Header/Header';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
 
@@ -75,34 +77,20 @@ function App() {
   return (
     <div className="container">
       <Nav recipes={recipes} />
+      <div className="content">
+        <Header />
 
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <Content
-              recipes={recipes}
-              loadingRecipesStatus={loadingRecipesStatus}
-              setUserAuth={setUserAuth}
-              isAuthenticated={isAuthenticated}
-              userData={userData}
-            />
-          }
-        />
-        <Route
-          path="/recipes/"
-          element={<Navigate to="/" />}
-          setUserAuth={setUserAuth}
-          isAuthenticated={isAuthenticated}
-          userData={userData}
-        />
-        <Route
-          path="/recipes/:slug"
-          element={<Content recipes={recipes} setUserAuth={setUserAuth} />}
-          isAuthenticated={isAuthenticated}
-          userData={userData}
-        />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Recipes recipes={recipes} />} />
+
+          <Route
+            path="/recipes/:slug"
+            element={<RecipeDetails recipes={recipes} />}
+          />
+
+          <Route path="*" element={<div>Page non trouvée</div>} />
+        </Routes>
+      </div>
     </div>
   );
 }

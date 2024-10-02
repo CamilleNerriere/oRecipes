@@ -3,10 +3,10 @@ import { NavLink } from 'react-router-dom';
 
 import { IRecipe } from '../../@types';
 
-function Link({ slug, title }: IRecipe) {
+function Link({ url, title }: IRecipe) {
   return (
     <NavLink
-      to={`recipes/${slug}`}
+      to={url}
       className={({ isActive }) => `link ${isActive ? 'active' : ''}`}
     >
       {title}

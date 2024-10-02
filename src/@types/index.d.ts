@@ -9,6 +9,7 @@ export interface IRecipe {
   id: number;
   title: string;
   slug: string;
+  url: sting;
   thumbnail: string;
   author: string;
   difficulty: string;

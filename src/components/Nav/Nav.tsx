@@ -10,9 +10,13 @@ interface RecipesProps {
 function Nav({ recipes }: RecipesProps) {
   return (
     <nav className="nav">
-      <Link slug="" title="Accueil" />
+      <Link url={'/'} title="Accueil" />
       {recipes.map((recipe) => (
-        <Link slug={recipe.slug} key={recipe.id} title={recipe.title} />
+        <Link
+          url={`/recipes/${recipe.slug}`}
+          key={recipe.id}
+          title={recipe.title}
+        />
       ))}
     </nav>
   );

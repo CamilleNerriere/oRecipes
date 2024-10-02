@@ -1,36 +1,33 @@
+import { Navigate, useParams } from 'react-router-dom';
+
 import './RecipeDetails.scss';
 import Ingredients from './Ingredients.tsx';
 import Instructions from './Instructions.tsx';
 
-import { IRecipe } from '../../@types';
+import { IRecipes } from '../../@types';
 
-interface RecipeDetailsProps {
-  recipe: IRecipe;
-}
+function RecipeDetails({ recipes }: IRecipes) {
+  const { slug } = useParams();
 
-function RecipeDetails({ recipe }: RecipeDetailsProps) {
-  const {
-    thumbnail,
-    title,
-    author,
-    difficulty,
-    description,
-    ingredients,
-    instructions,
-  } = recipe;
+  const selectedRecipe = recipes.find((recipe) => recipe.slug === slug);
+
+  if (!selectedRecipe) {
+    return <Navigate to="/error" />;
+  }
+
   return (
     <>
-      <img src={thumbnail} alt="" />
+      <img src={selectedRecipe.thumbnail} alt="" />
       <div className="title">
-        <h1 className="title__main"> {title}</h1>
+        <h1 className="title__main"> {selectedRecipe.title}</h1>
         <p className="title__infos">
           {' '}
-          {author} - {difficulty}
+          {selectedRecipe.author} - {selectedRecipe.difficulty}
         </p>{' '}
-        <p>{description}</p>
+        <p>{selectedRecipe.description}</p>
       </div>
-      <Ingredients ingredients={ingredients} />
-      <Instructions instructions={instructions} />
+      <Ingredients ingredients={selectedRecipe.ingredients} />
+      <Instructions instructions={selectedRecipe.instructions} />
     </>
   );
 }
