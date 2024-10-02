@@ -6,24 +6,13 @@ import Recipes from '../Recipes/Recipes';
 import Header from '../Header/Header';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
-
-interface UserAuth {
-  email: string;
-  password: string;
-}
-
-interface UserData {
-  pseudo: string;
-  token: string;
-  logged: boolean;
-}
+import { Icredentials, IAuthUser } from '../../@types';
 
 function App() {
   const [recipes, setRecipes] = useState([]);
   const [loadingRecipesStatus, setLoadingRecipesStatus] = useState(true);
-  const [userAuth, setUserAuth] = useState<UserAuth | null>(null);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
-  const [userData, setUserData] = useState<UserData | null>(null);
+  const [credentials, setCredentials] = useState<Icredentials | null>(null);
+  const [authUser, setAuthUser] = useState<IAuthUser | null>(null);
 
   // récupération des recettes
 
@@ -46,29 +35,27 @@ function App() {
   // login
 
   const login = useCallback(async () => {
-    if (userAuth) {
+    if (credentials) {
       const response = await fetch('http://localhost:3000/api/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email: userAuth.email,
-          password: userAuth.password,
+          email: credentials.email,
+          password: credentials.password,
         }),
       });
       const user = await response.json();
-      setUserData(user);
+
       console.log(user);
       if (response.ok) {
-        console.log(user);
-        setIsAuthenticated(true);
+        setAuthUser(user);
       } else {
-        setIsAuthenticated(false);
         throw user;
       }
     }
-  }, [userAuth]);
+  }, [credentials]);
 
   useEffect(() => {
     login();
@@ -78,7 +65,7 @@ function App() {
     <div className="container">
       <Nav recipes={recipes} />
       <div className="content">
-        <Header />
+        <Header setCredentials={setCredentials} authUser={authUser} />
 
         <Routes>
           <Route path="/" element={<Recipes recipes={recipes} />} />

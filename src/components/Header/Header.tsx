@@ -1,9 +1,26 @@
 import './Header.scss';
 
-function Header() {
+import { IAuthUser } from '../../@types';
+
+interface HeaderProps {
+  setCredentials: React.Dispatch<React.SetStateAction<UserAuth | null>>;
+  authUser: IAuthUser;
+}
+
+function Header({ setCredentials, authUser }: HeaderProps) {
+  if (authUser) {
+    return (
+      <div className="header">
+        <img className="header__img" src="src/assets/logo.png" alt="" />{' '}
+        <div className="header__user-auth"> Bienvenue {authUser.pseudo}</div>
+      </div>
+    );
+  }
+
   return (
     <div className="header">
       <img className="header__img" src="src/assets/logo.png" alt="" />
+
       <form
         className="header__login"
         onSubmit={(event) => {
@@ -12,7 +29,7 @@ function Header() {
           const data = Object.fromEntries(formData);
           const email = data.email as string;
           const password = data.password as string;
-          console.log(email, password);
+          setCredentials({ email, password });
         }}
       >
         <input
