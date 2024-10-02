@@ -4,6 +4,7 @@ import Nav from '../Nav/Nav';
 import RecipeDetails from '../RecipeDetails/RecipeDetails';
 import Recipes from '../Recipes/Recipes';
 import Header from '../Header/Header';
+import Spinner from '../Spinner/Spinner';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Icredentials, IAuthUser } from '../../@types';
@@ -13,6 +14,10 @@ function App() {
   const [loadingRecipesStatus, setLoadingRecipesStatus] = useState(true);
   const [credentials, setCredentials] = useState<Icredentials | null>(null);
   const [authUser, setAuthUser] = useState<IAuthUser | null>(null);
+
+  useEffect(() => {
+    document.title = 'ORecipe';
+  }, []);
 
   // récupération des recettes
 
@@ -68,7 +73,15 @@ function App() {
         <Header setCredentials={setCredentials} authUser={authUser} />
 
         <Routes>
-          <Route path="/" element={<Recipes recipes={recipes} />} />
+          <Route
+            path="/"
+            element={
+              <Recipes
+                recipes={recipes}
+                loadingRecipesStatus={loadingRecipesStatus}
+              />
+            }
+          />
 
           <Route
             path="/recipes/:slug"

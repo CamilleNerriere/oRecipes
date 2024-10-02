@@ -13,7 +13,8 @@ function Recipes({ recipes, loadingRecipesStatus }: RecipesProps) {
   return (
     <div className="recipes">
       <h1 className="recipes__title">Les recettes oRecipes</h1>
-      <p className="recipes__resume">Voici nos 6 recettes</p>
+
+      <p className="recipes__resume">Voici nos {recipes.length} recettes</p>
       <div className="recipes__container">
         {loadingRecipesStatus && <Spinner />}
         {recipes.map((recipe) => (
