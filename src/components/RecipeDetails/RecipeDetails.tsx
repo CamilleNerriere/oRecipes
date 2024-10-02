@@ -16,19 +16,30 @@ function RecipeDetails({ recipes }: IRecipes) {
   }
 
   return (
-    <>
-      <img src={selectedRecipe.thumbnail} alt="" />
-      <div className="title">
-        <h1 className="title__main"> {selectedRecipe.title}</h1>
-        <p className="title__infos">
-          {' '}
-          {selectedRecipe.author} - {selectedRecipe.difficulty}
-        </p>{' '}
-        <p>{selectedRecipe.description}</p>
+    <div className="recipe-detail">
+      <div className="recipe-detail__header">
+        <img
+          className="recipe-detail__header--img"
+          src={selectedRecipe.thumbnail}
+          alt=""
+        />
+        <div className="recipe-detail__header--title">
+          <h1 className="recipe-detail__header--title__main">
+            {' '}
+            {selectedRecipe.title}
+          </h1>
+          <p className="recipe-detail__header--title__infos">
+            {' '}
+            {selectedRecipe.author} - {selectedRecipe.difficulty}
+          </p>{' '}
+          <p className="recipe-detail__header--title__difficulty">
+            {selectedRecipe.description}
+          </p>
+        </div>
       </div>
       <Ingredients ingredients={selectedRecipe.ingredients} />
       <Instructions instructions={selectedRecipe.instructions} />
-    </>
+    </div>
   );
 }
 

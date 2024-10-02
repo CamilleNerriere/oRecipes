@@ -9,7 +9,8 @@ function Instructions({ instructions }: InstructionsProps) {
     <ul className="instructions">
       {instructions.map((instruction) => (
         <li className="instructions__item" key={instruction}>
-          <span>-</span> {instruction}
+          <span className="instructions__item--dash">&mdash;</span>{' '}
+          {instruction}
         </li>
       ))}
     </ul>

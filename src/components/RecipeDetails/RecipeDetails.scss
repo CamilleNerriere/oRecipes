@@ -1,0 +1,41 @@
+@use 'src/styles/vars';
+
+.recipe-detail{
+  padding: vars.$gutter;
+
+  &__header{
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+
+    &--img{
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    &--title{
+      position: absolute;
+      bottom: 2em;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.369); /* Fond semi-transparent */
+      color: white;
+      padding: vars.$gutter  vars.$gutter vars.$gutter * 0.5;
+
+      &__infos, &__main{
+        text-align: center;
+      }
+
+      &__main{
+        font-size: 3em;
+        font-weight: 300;
+      }
+      
+      &__infos, &__difficulty{
+        font-size: 1.2em;
+      }
+
+    }
+  }
+
+}

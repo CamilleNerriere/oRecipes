@@ -1,0 +1,13 @@
+@use 'src/styles/vars';
+
+.instructions{
+  margin-top: vars.$gutter;
+  background-color: vars.$light-color;
+  padding: vars.$gutter;
+  border-top-left-radius: vars.$gutter;
+  border-top-right-radius: vars.$gutter;
+
+  &__item--dash{
+    padding-right: vars.$gutter * 0.2;
+  }
+}

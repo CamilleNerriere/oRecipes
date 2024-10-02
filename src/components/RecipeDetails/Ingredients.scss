@@ -1,0 +1,19 @@
+@use 'src/styles/vars';
+
+.ingredients{
+  padding-top: vars.$gutter * 0.5 ;
+
+  &__item{
+    padding-bottom: vars.$gutter * 0.4;
+    padding-top: vars.$gutter * 0.4;
+    border-bottom: vars.$light-grey solid 1px;
+
+    &--quantity{
+      background-color: vars.$primary-color;
+      padding: vars.$gutter * 0.2;
+      border-radius: vars.$gutter * 0.2;
+      color:#fff;
+      margin: vars.$gutter * 0.2;
+    }
+  }
+}
