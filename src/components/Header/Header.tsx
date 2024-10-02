@@ -1,4 +1,5 @@
 import './Header.scss';
+import logo from '../../assets/logo.png';
 
 import { IAuthUser } from '../../@types';
 
@@ -11,7 +12,7 @@ function Header({ setCredentials, authUser }: HeaderProps) {
   if (authUser) {
     return (
       <div className="header">
-        <img className="header__img" src="src/assets/logo.png" alt="" />{' '}
+        <img className="header__img" src={logo} alt="" />{' '}
         <div className="header__user-auth"> Bienvenue {authUser.pseudo}</div>
       </div>
     );
@@ -19,7 +20,7 @@ function Header({ setCredentials, authUser }: HeaderProps) {
 
   return (
     <div className="header">
-      <img className="header__img" src="src/assets/logo.png" alt="" />
+      <img className="header__img" src={logo} alt="" />
 
       <form
         className="header__login"

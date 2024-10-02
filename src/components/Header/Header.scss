@@ -25,4 +25,10 @@
     border: none;
     color: vars.$light-color;
   }
+
+  &__user-auth{
+    padding-right: vars.$gutter;
+    font-size: 1.2em;
+    color: vars.$dark-color;
+  }
 }
