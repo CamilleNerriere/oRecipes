@@ -4,7 +4,7 @@ import Nav from '../Nav/Nav';
 import RecipeDetails from '../RecipeDetails/RecipeDetails';
 import Recipes from '../Recipes/Recipes';
 import Header from '../Header/Header';
-import Spinner from '../Spinner/Spinner';
+import Loading from '../Loading/Loading';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Icredentials, IAuthUser, IRecipe } from '../../@types';
@@ -96,9 +96,13 @@ function App() {
     login();
   }, [login]);
 
+  if (loadingRecipesStatus) {
+    return <Loading />;
+  }
+
   return (
     <div className="container">
-      <Nav recipes={recipes} />
+      <Nav recipes={recipes} favoriteRecipes={favoriteRecipes} />
       <div className="content">
         <Header setCredentials={setCredentials} authUser={authUser} />
 
@@ -112,11 +116,24 @@ function App() {
               />
             }
           />
-
           <Route
             path="/recipes/:slug"
             element={<RecipeDetails recipes={recipes} />}
           />
+
+          {favoriteRecipes.length ? (
+            <Route
+              path="/recipes/favorite"
+              element={
+                <Recipes
+                  recipes={favoriteRecipes}
+                  loadingRecipesStatus={loadingRecipesStatus}
+                />
+              }
+            />
+          ) : (
+            <Route path="/recipes/favorite" element={<Navigate to="/404" />} />
+          )}
 
           <Route path="*" element={<div>Page non trouvée</div>} />
         </Routes>
