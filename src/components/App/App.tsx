@@ -7,19 +7,23 @@ import Header from '../Header/Header';
 import Spinner from '../Spinner/Spinner';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
-import { Icredentials, IAuthUser } from '../../@types';
+import { Icredentials, IAuthUser, IRecipe } from '../../@types';
 
 function App() {
+  //Gestion données API
   const [recipes, setRecipes] = useState([]);
   const [loadingRecipesStatus, setLoadingRecipesStatus] = useState(true);
+
+  const [favoriteRecipes, setFavoriteRecipes] = useState<IRecipe[]>([]);
+
+  // Gestion authentification
   const [credentials, setCredentials] = useState<Icredentials | null>(null);
   const [authUser, setAuthUser] = useState<IAuthUser | null>(null);
-
-  useEffect(() => {
-    document.title = 'ORecipe';
-  }, []);
+  const [jwt, setJwt] = useState<string | null>(null);
 
   // récupération des recettes
+
+  //Toutes les recettes
 
   const loadRecipes = useCallback(async () => {
     try {
@@ -36,6 +40,31 @@ function App() {
   useEffect(() => {
     loadRecipes();
   }, [loadRecipes]);
+
+  // Les recettes prférées de l'utilisateur (suppose être log)
+  useEffect(() => {
+    const loadFavoriteRecipes = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/favorites', {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${jwt}`,
+          },
+        });
+        const data = await response.json();
+
+        setFavoriteRecipes(data.favorites);
+      } catch (error) {
+        console.log('catch/error', error);
+      }
+    };
+
+    if (jwt !== null) {
+      // console.log('il faut aller chercher les recettes préférées');
+
+      loadFavoriteRecipes();
+    }
+  }, [jwt]);
 
   // login
 
@@ -56,6 +85,7 @@ function App() {
       console.log(user);
       if (response.ok) {
         setAuthUser(user);
+        setJwt(user.token);
       } else {
         throw user;
       }
