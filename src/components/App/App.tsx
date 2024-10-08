@@ -113,6 +113,7 @@ function App() {
               <Recipes
                 recipes={recipes}
                 loadingRecipesStatus={loadingRecipesStatus}
+                favoriteRecipes={favoriteRecipes}
               />
             }
           />

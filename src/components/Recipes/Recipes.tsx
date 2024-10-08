@@ -7,9 +7,16 @@ import { IRecipe } from '../../@types';
 interface RecipesProps {
   recipes: IRecipe[];
   loadingRecipesStatus: boolean;
+  favoriteRecipes: IRecipe[];
 }
 
-function Recipes({ recipes, loadingRecipesStatus }: RecipesProps) {
+function Recipes({
+  recipes,
+  loadingRecipesStatus,
+  favoriteRecipes,
+}: RecipesProps) {
+  const favoriteRecipesId = favoriteRecipes.map((recipe) => recipe.id);
+  console.log(favoriteRecipesId);
   return (
     <div className="recipes">
       <h1 className="recipes__title">Les recettes oRecipes</h1>
@@ -20,6 +27,7 @@ function Recipes({ recipes, loadingRecipesStatus }: RecipesProps) {
         {recipes.map((recipe) => (
           <Recipe
             key={recipe.id}
+            favorite={favoriteRecipesId.includes(recipe.id)}
             thumbnail={recipe.thumbnail}
             title={recipe.title}
             difficulty={recipe.difficulty}

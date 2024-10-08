@@ -3,9 +3,18 @@ import { Link } from 'react-router-dom';
 
 import { IRecipe } from '../../@types';
 
-function Recipe({ thumbnail, title, difficulty, slug }: IRecipe) {
+interface RecipeProps extends IRecipe {
+  favorite: boolean;
+}
+
+function Recipe({ thumbnail, title, difficulty, slug, favorite }: RecipeProps) {
+  let className = 'recipe';
+  if (favorite) {
+    className += ' favorite';
+  }
+
   return (
-    <div className="recipe">
+    <div className={className}>
       <img className="recipe__img" src={thumbnail} alt="cookies" />
       <div className="recipe__resume">
         <h3 className="recipe__title"> {title}</h3>

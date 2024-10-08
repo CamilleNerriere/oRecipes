@@ -9,6 +9,12 @@
   margin: vars.$gutter;
   border-radius: vars.$gutter;
 
+  &.favorite .recipe__title::after{
+    content: "\2605";
+    color: rgb(196, 196, 34);
+    margin-left: 5px;
+  }
+
 
   &__img{
     width: 100%;
