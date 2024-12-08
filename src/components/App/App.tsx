@@ -7,7 +7,7 @@ import Header from '../Header/Header';
 import Loading from '../Loading/Loading';
 
 import { Route, Routes, Navigate } from 'react-router-dom';
-import { Icredentials, IAuthUser, IRecipe } from '../../@types';
+import { ICredentials, IAuthUser, IRecipe } from '../../@types';
 
 function App() {
   //Gestion données API
@@ -17,7 +17,7 @@ function App() {
   const [favoriteRecipes, setFavoriteRecipes] = useState<IRecipe[]>([]);
 
   // Gestion authentification
-  const [credentials, setCredentials] = useState<Icredentials | null>(null);
+  const [credentials, setCredentials] = useState<ICredentials | null>(null);
   const [authUser, setAuthUser] = useState<IAuthUser | null>(null);
   const [jwt, setJwt] = useState<string | null>(null);
 
@@ -33,7 +33,6 @@ function App() {
       setLoadingRecipesStatus(false);
     } catch (error) {
       console.log(error);
-      // gérer un message d'erreur utilisateur
     }
   }, []);
 
@@ -42,29 +41,28 @@ function App() {
   }, [loadRecipes]);
 
   // Les recettes prférées de l'utilisateur (suppose être log)
-  useEffect(() => {
-    const loadFavoriteRecipes = async () => {
-      try {
-        const response = await fetch('http://localhost:3000/api/favorites', {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${jwt}`,
-          },
-        });
-        const data = await response.json();
 
-        setFavoriteRecipes(data.favorites);
-      } catch (error) {
-        console.log('catch/error', error);
-      }
-    };
+  const loadFavoriteRecipes = useCallback(async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/favorites', {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${jwt}`,
+        },
+      });
+      const data = await response.json();
 
-    if (jwt !== null) {
-      // console.log('il faut aller chercher les recettes préférées');
-
-      loadFavoriteRecipes();
+      setFavoriteRecipes(data.favorites);
+    } catch (error) {
+      console.log('catch/error', error);
     }
   }, [jwt]);
+
+  useEffect(() => {
+    if (jwt !== null) {
+      loadFavoriteRecipes();
+    }
+  }, [jwt, loadFavoriteRecipes]);
 
   // login
 
@@ -82,7 +80,6 @@ function App() {
       });
       const user = await response.json();
 
-      console.log(user);
       if (response.ok) {
         setAuthUser(user);
         setJwt(user.token);

@@ -16,7 +16,6 @@ function Recipes({
   favoriteRecipes,
 }: RecipesProps) {
   const favoriteRecipesId = favoriteRecipes.map((recipe) => recipe.id);
-  console.log(favoriteRecipesId);
   return (
     <div className="recipes">
       <h1 className="recipes__title">Les recettes oRecipes</h1>
